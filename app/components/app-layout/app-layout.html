@@ -1,0 +1,21 @@
+<div layout="column">
+  <section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      <md-toolbar class="md-theme-blue">
+        <h1 class="md-toolbar-tools">Git Rank</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <side-nav></side-nav>
+      </md-content>
+    </md-sidenav>
+    <md-content flex>
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools" hide-gt-md>GitRank</h1>
+      </md-toolbar>
+      <div layout="column" layout-fill layout-align="top center" ui-view>
+
+      </div>
+      <div flex></div>
+    </md-content>
+  </section>
+</div>
