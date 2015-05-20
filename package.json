@@ -1,0 +1,14 @@
+{
+  "name": "gitrank",
+  "version": "1.0.0",
+  "description": "Github API Sample App",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/main.js"
+  },
+  "author": "Rob Wormald <robwormald@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}
