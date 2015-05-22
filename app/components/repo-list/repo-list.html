@@ -1,0 +1,24 @@
+<md-tabs md-selected="repoList.selectedOrderIndex" md-dynamic-height="false">
+    <md-tab ng-repeat="orderOption in repoList.orderOptions">
+      <md-tab-label>
+        {{orderOption.display}}
+      </md-tab-label>
+    </md-tab>
+</md-tabs>
+<md-content>
+  <md-list>
+    <md-list-item layout="row" layout-align="start center">
+      <p>{{ repoList.orderByHeader | uppercase}}</p>
+      <p>REPO </p>
+      <span flex></span>
+      <p>RANK</p>
+    </md-list-item>
+  <md-list-item
+    ng-repeat="repo in repoList.repos | orderBy:repoList.orderByKey:true">
+    <p>{{repo[repoList.orderByKey]}}</p>
+    <p>{{repo.full_name}}</p>
+    <span flex></span>
+    <p>{{$index + 1}}</p>
+  </md-list-item>
+</md-list>
+</md-content>

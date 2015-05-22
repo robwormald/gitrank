@@ -1,6 +1,7 @@
 export class AppLayoutController {
   constructor(sideNavDelegate){
     this._sideNavDelegate = sideNavDelegate;
+    this.selectedOrg = {};
   }
 
   toggleNav(){

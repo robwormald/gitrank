@@ -1,0 +1,29 @@
+
+<md-subheader layout="column" layout-sm="column" layout-align="center center">
+  <span>MY GITHUB ORGS</span>
+
+
+</md-subheader>
+
+<md-list>
+  <md-list-item
+    ng-repeat="org in sideNav.GitHub.organizations"
+    ng-click="sideNav.setSelectedOrg(org)"
+    ng-class="{'md-primary' : sideNav.selectedOrg.login == org.login}"
+  >
+
+    <p>{{org.login}}</p>
+    <md-checkbox class="md-secondary" ng-hide="sideNav.hideCheckboxes" ng-model="org.$selected"></md-checkbox>
+  </md-list-item>
+  <md-subheader class="md-no-sticky"></md-subheader>
+  <form md-list-item class="md-list-item" ng-submit="sideNav.addOrg(sideNav.newOrg);">
+    <md-input-container>
+      <label for="testInput">Add GitHub org...</label>
+      <input type="text" id="testInput"
+             ng-model="sideNav.newOrg.login"
+             md-sidenav-focus>
+    </md-input-container>
+  </form>
+
+
+</md-list>

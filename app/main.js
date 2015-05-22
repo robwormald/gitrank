@@ -12,7 +12,7 @@ import 'angular-ui-router';
 //modules
 import {components} from './components/all';
 
-import {GitHub} from './services/GitHub';
+import {GitHub, GitHubAPI} from './services/GitHub';
 
 
 //angular registration
@@ -22,8 +22,9 @@ const appDependencies = ['ngMaterial', 'ui.router'].concat(components);
 //angular app
 let app = angular.module(appName, appDependencies);
 
-//angular services
+//github services
 app.service('GitHub',GitHub);
+app.service('GitHubAPI',GitHubAPI);
 
 
 //angular configuration
@@ -33,20 +34,30 @@ app.config(['$stateProvider', $stateProvider => {
   $stateProvider.state('app',{
     abstract: true,
     templateUrl: 'components/app-layout/app-layout.html',
-    controller: 'AppLayoutController as appLayout'
+    controller: 'AppLayoutController as appRootController'
   });
 
-  $stateProvider.state('app.home',{
-    //abstract: true,
-    template: '<div>hello world</div>'
+  $stateProvider.state('app.orgs',{
+    template: '<org-list orgs="appRootController.selectedOrgs" selectedOrg="appRootController.selectedOrg"></repo-list>',
+    controller: 'OrgListController as orgList'
+  });
+
+  $stateProvider.state('app.repos',{
+    template: `<repo-list repos="appRootController.selectedOrg.repos"></repo-list>`,
+    controller: 'OrgListController as orgList'
   });
 
 }]);
 
 //angular run
-app.run(['$state', $state => {
+app.run(['$state', 'GitHub', ($state, GitHub) => {
 
-  $state.go('app.home');
+  GitHub.addOrg({login: 'netflix'});
+  GitHub.addOrg({login: 'angular'});
+  GitHub.addOrg({login: 'tildeio'});
+  GitHub.addOrg({login: 'microsoft'});
+
+  $state.go('app.repos');
 
 }]);
 
