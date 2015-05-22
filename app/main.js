@@ -50,13 +50,11 @@ app.config(['$stateProvider', $stateProvider => {
 }]);
 
 //angular run
-app.run(['$state', 'GitHub', ($state, GitHub) => {
+app.run(['$state','$location', 'GitHub', ($state,$location, GitHub) => {
 
-  GitHub.addOrg({login: 'netflix'});
-  GitHub.addOrg({login: 'angular'});
-  GitHub.addOrg({login: 'tildeio'});
-  GitHub.addOrg({login: 'microsoft'});
-
+  //grab the auth token
+  GitHub.parseToken();
+  GitHub.loadUserOrgs();
   $state.go('app.repos');
 
 }]);

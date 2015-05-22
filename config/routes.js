@@ -20,5 +20,8 @@
  * http://sailsjs.org/#/documentation/concepts/Routes/RouteTargetSyntax.html
  */
 
-module.exports.routes = {};
+module.exports.routes = {
+  'get /github/authenticate': 'AuthController.authenticate',
+  'get /github/authenticate/callback': 'AuthController.authenticateCallback'
+};
 module.exports.paths = {public: 'app'}

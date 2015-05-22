@@ -1,8 +1,8 @@
 export let RepoSortOptions = [
   { propName: 'stargazers_count', display: 'Stars'},
   { propName: 'forks_count', display: 'Forks'},
-  { propName: 'open_issues_count', display: 'Open Issues'},
-  { propName: 'watchers', display: 'Watchers'}
+  { propName: 'open_issues_count', display: 'Issues'},
+  { propName: 'size', display: 'Size'}
 ]
 
 export class RepoListController {

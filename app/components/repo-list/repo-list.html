@@ -7,18 +7,18 @@
 </md-tabs>
 <md-content>
   <md-list>
-    <md-list-item layout="row" layout-align="start center">
-      <p>{{ repoList.orderByHeader | uppercase}}</p>
-      <p>REPO </p>
-      <span flex></span>
-      <p>RANK</p>
+    <md-list-item layout="row" layout-align="start">
+      <p flex="15">RANK</p>
+      <p flex="25">{{ repoList.orderByHeader | uppercase}}</p>
+      <p flex>REPO</p>
     </md-list-item>
+    <md-divider></md-divider>
   <md-list-item
-    ng-repeat="repo in repoList.repos | orderBy:repoList.orderByKey:true">
-    <p>{{repo[repoList.orderByKey]}}</p>
-    <p>{{repo.full_name}}</p>
-    <span flex></span>
-    <p>{{$index + 1}}</p>
+    ng-repeat-start="repo in repoList.repos | orderBy:repoList.orderByKey:true track by repo.name ">
+    <h3 flex="15">{{$index + 1}}</h3>
+    <h2 flex="25">{{repo[repoList.orderByKey]}}</h2>
+    <p flex>{{repo.full_name}}</p>
   </md-list-item>
+  <md-divider ng-repeat-end></md-divider>
 </md-list>
 </md-content>

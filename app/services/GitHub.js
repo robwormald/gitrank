@@ -1,59 +1,48 @@
 const GITHUB_BASE_URL = 'https://api.github.com';
-const GITHUB_TOKEN = '81887a525d6b32f2e2219257aa330ac905b9d465'
 
 export class GitHubAPI {
+
   constructor($http,$q){
-    this.$http = $http;
-    this.$q = $q;
+    this._$http = $http;
+    this._$q = $q;
+    this._authToken = undefined;
   }
-  getPath(path, params = {}){
-    params.access_token = GITHUB_TOKEN;
-    return this.$http.get(`${GITHUB_BASE_URL}/${path}`,{params})
+
+  setAuthToken(token){
+    this._access_token = token;
+  }
+
+  get(url, params = {}){
+    params.access_token = this._access_token;
+    return this._$http.get(url,{params})
       .then((res) => this._parseResponse(res));
   }
-  getUrl(url, params){
-    return this.$http.get(url,{params})
-      .then((res) => this._parseResponse(res));
+
+  getAll(url, params = {}, all = []){
+    params.access_token = this._access_token;
+    params.page = params.page || 1;
+    return this.get(url,params).then(results => {
+      if(!results.length){
+        return all;
+      }
+      params.page++;
+      return this.getAll(url, params, all.concat(results));
+    });
   }
 
   _parseResponse(res){
-    console.log(res.data)
     return res.data;
   }
 }
 
+
 GitHubAPI.$inject = ['$http','$q'];
-
-class GitHubRepo {
-  constructor(gitHubAPI, data){
-    this._api = gitHubAPI;
-    Object.assign(this, data);
-  }
-}
-
-class GitHubOrg {
-  constructor(gitHubAPI, data){
-    this._api = gitHubAPI;
-    Object.assign(this,data);
-  }
-
-  loadRepos(){
-    return this._api.getUrl(this.repos_url)
-      .then(repos => repos.map(repo => new GitHubRepo(this._api, repo)))
-      .then(repos => this.addRepos(repos));
-  }
-
-  addRepos(repos){
-    this.repos = repos;
-    return repos;
-  }
-
-}
 
 
 export class GitHub {
-  constructor(gitHubAPI){
+  constructor(gitHubAPI,$location){
     this._api = gitHubAPI;
+    this._$location = $location;
     this._watchedOrgs = new Map();
   }
 
@@ -61,9 +50,15 @@ export class GitHub {
     return Array.from(this._watchedOrgs.values());
   }
 
+
+  loadUserOrgs(params){
+    return this._api.getAll(`${GITHUB_BASE_URL}/user/orgs`, params)
+      .then(orgs => orgs.map((org) => this.cacheOrg(org)));
+  }
+
   addOrg(org){
     return this._api.getPath(`orgs/${org.login}`)
-      .then((org) => this.cacheOrg(org));
+      .then(org => this.cacheOrg(org));
   }
 
   cacheOrg(orgData){
@@ -74,6 +69,12 @@ export class GitHub {
     return org;
   }
 
+  parseToken(){
+    let token = this._$location.search().github_token;
+    this._$location.search({})
+    this._api.setAuthToken(token);
+  }
+
 }
 
-GitHub.$inject = ['GitHubAPI'];
+GitHub.$inject = ['GitHubAPI','$location'];
