@@ -1,0 +1,31 @@
+<md-toolbar class="md-theme-indigo" layout="row">
+
+  <div class="md-toolbar-tools">
+    <a ui-sref="^.org(repoView.repo.owner)">{{repoView.repo.owner.login}}</a> /
+    <span>{{repoView.repo.name}}</span>
+
+  </div>
+</md-toolbar>
+<md-content flex layout="column" layout-fill layout-align="top center" >
+    <section>
+      <md-subheader>
+      <span>Recent Commits</span>
+      </md-subheader>
+
+      <md-list>
+        <md-list-item ng-repeat-start="commit in repoView.repo.commits">
+          <img class="md-avatar" ng-src="{{commit.committer.avatar_url}}" alt="" />
+          <p flex="20">
+            {{commit.committer.login}}
+          </p>
+          <p>
+            <a ng-href="{{commit.html_url}}" target="_blank">{{commit.commit.message}}</a>
+          </p>
+        </md-list-item>
+        <md-divider ng-repeat-end>
+      </md-list>
+    </section>
+
+
+
+</md-content>
