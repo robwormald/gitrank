@@ -1,0 +1,1 @@
+module.exports = require("npm:jsonpointer@1.1.0/jsonpointer");

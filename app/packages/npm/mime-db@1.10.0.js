@@ -1,0 +1,1 @@
+module.exports = require("npm:mime-db@1.10.0/index");
