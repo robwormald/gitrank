@@ -1,24 +1,31 @@
-<md-tabs md-selected="repoList.selectedOrderIndex" md-dynamic-height="false">
+<section layout="row">
+  <md-tabs
+    md-selected="repoList.selectedOrderIndex"
+    md-dynamic-height="false"
+    flex>
     <md-tab ng-repeat="orderOption in repoList.orderOptions">
       <md-tab-label>
         {{orderOption.display}}
       </md-tab-label>
     </md-tab>
-</md-tabs>
+  </md-tabs>
+</section>
 <md-content>
   <md-list>
     <md-list-item layout="row" layout-align="start">
-      <p flex="15">RANK</p>
+      <a flex="15">RANK</a>
       <p flex="25">{{ repoList.orderByHeader | uppercase}}</p>
-      <p flex>REPO</p>
+      <md-input-container flex>
+        <label for="searchInput">Search Repositories</label>
+        <input type="text" id="searchInput" ng-model="repoList.search.$">
+      </md-input-container>
     </md-list-item>
-    <md-divider></md-divider>
   <md-list-item
-    ng-repeat-start="repo in repoList.repos | orderBy:repoList.orderByKey:true track by repo.name ">
-    <h3 flex="15">{{$index + 1}}</h3>
-    <h2 flex="25">{{repo[repoList.orderByKey]}}</h2>
-    <p flex>{{repo.full_name}}</p>
-  </md-list-item>
+    ng-repeat-start="repo in repoList.repos|filter:repoList.search|orderBy:repoList.orderByKey:true track by repo.name">
+    <h2 class="md-title" flex="15">{{$index + 1}}</h2>
+    <h2 class="md-title" flex="25">{{repo[repoList.orderByKey]}}</h2>
+    <h2 class="md-title" flex="60"><a ui-sref="app.repoDetail({orgName: repo.owner.login, repoName: repo.name})">{{repo.name}}</a></h2>
+      </md-list-item>
   <md-divider ng-repeat-end></md-divider>
 </md-list>
 </md-content>

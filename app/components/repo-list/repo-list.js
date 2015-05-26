@@ -5,9 +5,15 @@ export let RepoSortOptions = [
   { propName: 'size', display: 'Size'}
 ]
 
+export class RepoListViewController {
+  constructor(GitHub, org){
+    this.org = org;
+  }
+}
+
 export class RepoListController {
   constructor(){
-    this.filterBy = {};
+    this.search = {};
     this.orderOptions = RepoSortOptions;
     this.selectedOrderIndex = 0;
   }

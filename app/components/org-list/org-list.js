@@ -1,5 +1,18 @@
 export class OrgListController {
-  constructor(GitHub){
-    this.GitHub = GitHub;
+  constructor(){
+    console.log(this.orgs)
+  }
+
+}
+
+export function OrgList(){
+  return {
+    restrict: 'E',
+    templateUrl: 'components/org-list/org-list.html',
+    controller: 'OrgListController as orgList',
+    bindToController: true,
+    scope: {
+      orgs: '='
+    }
   }
 }

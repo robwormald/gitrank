@@ -1,12 +1,9 @@
-<style>
- .org-avatar {
-   width: 72px;
-   height: 72px;
- }
-</style>
-<div>
-  <md-content>
-    <md-subheader class="md-primary">Unread Messages</md-subheader>
-    <org-card ng-repeat="org in orgList.orgs" org="org"></org-card>
-  </md-content>
-</div>
+<md-list>
+  <md-list-item
+    ng-repeat="org in orgList.orgs"
+    ng-class="{'md-primary' : sideNav.selectedOrg.login == org.login}">
+
+    <p class="md-primary" ui-sref="app.org(org)">{{org.login}}</p>
+    <md-checkbox class="md-secondary" ng-show="sideNav.showCheckboxes"></md-checkbox>
+  </md-list-item>
+</md-list>

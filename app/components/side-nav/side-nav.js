@@ -1,7 +1,6 @@
 export class SideNavController {
   constructor(GitHub){
     this.GitHub = GitHub;
-    console.log(this.selectedOrg)
   }
 
   addOrg(newOrg){
@@ -24,7 +23,7 @@ export function SideNav(){
     controller: 'SideNavController as sideNav',
     bindToController: true,
     scope: {
-      selectedOrg: '='
+      orgs: '='
     }
   }
 }
