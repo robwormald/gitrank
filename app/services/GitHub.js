@@ -9,6 +9,11 @@ class GitHubRepo {
     Object.assign(this, data);
   }
 
+  loadRecentCommits(){
+    return this._api.get(`${GITHUB_BASE_URL}/repos/${this.owner.login}/${this.name}/commits`)
+      .then(commits => this.commits = commits);
+  }
+
 }
 
 class GitHubOrg {
@@ -25,6 +30,11 @@ class GitHubOrg {
         .then(repos => this.addRepos(repos));
     }
     return this._loadRepos;
+  }
+
+  getRepo(repoName){
+    return this.loadRepos()
+      .then((repos) => repos.filter((repo) => repo.name === repoName).pop())
   }
 
   addRepos(repos){

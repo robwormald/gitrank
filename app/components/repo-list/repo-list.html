@@ -24,7 +24,7 @@
     ng-repeat-start="repo in repoList.repos|filter:repoList.search|orderBy:repoList.orderByKey:true track by repo.name">
     <h2 class="md-title" flex="15">{{$index + 1}}</h2>
     <h2 class="md-title" flex="25">{{repo[repoList.orderByKey]}}</h2>
-    <h2 class="md-title" flex="60"><a ui-sref="app.repoDetail({orgName: repo.owner.login, repoName: repo.name})">{{repo.name}}</a></h2>
+    <h2 class="md-title" flex="60"><a ui-sref="app.repoDetail({login: repo.owner.login, repoName: repo.name})">{{repo.name}}</a></h2>
       </md-list-item>
   <md-divider ng-repeat-end></md-divider>
 </md-list>

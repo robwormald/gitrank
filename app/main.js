@@ -18,7 +18,7 @@ import {TokenStore, TOKEN_NOT_FOUND, GITHUB_TOKEN_KEY} from './services/TokenSto
 import {AppViewController} from 'views/app-view/app-view-controller';
 import {OrgViewController} from 'views/org-view/org-view-controller';
 import {OrgsViewController} from 'views/orgs-view/orgs-view-controller';
-
+import {RepoViewController} from 'views/repo-view/repo-view-controller';
 
 
 //angular registration
@@ -32,6 +32,7 @@ let app = angular.module(appName, appDependencies);
 app.controller('AppViewController',AppViewController);
 app.controller('OrgViewController',OrgViewController);
 app.controller('OrgsViewController',OrgsViewController);
+app.controller('RepoViewController',RepoViewController);
 //github services
 app.service('GitHub',GitHub);
 app.service('GitHubAPI',GitHubAPI);
@@ -80,20 +81,15 @@ app.config(['$stateProvider', $stateProvider => {
   });
 
   $stateProvider.state('app.repoDetail',{
-    url: '/orgs/:orgName/repos/:repoName',
-    template: `<repo-detail repo="repoDetail.repo"></repo-detail>`,
-    controller: 'RepoDetailViewController as repoDetail',
+    url: '/orgs/:login/repos/:repoName',
+    templateUrl: 'views/repo-view/repo-view.html' ,
+    controller: 'RepoViewController as repoView',
     resolve: {
       repo: ['$stateParams','GitHub','$q', ($stateParams, GitHub, $q) => {
-        let org = GitHub.getOrg($stateParams.orgName);
-        if(org){
-
-          let repo = org.repos.filter((repo) => repo.name === $stateParams.repoName).pop();
-          console.log(repo)
-        }
-        else{
-          return $q.reject('not found');
-        }
+        let getOrg = GitHub.getOrg($stateParams.login);
+        return getOrg.then((org) => {
+          return org.getRepo($stateParams.repoName);
+        });
       }]
     }
   });
