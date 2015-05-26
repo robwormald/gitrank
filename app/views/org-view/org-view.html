@@ -1,0 +1,15 @@
+<md-toolbar class="md-theme-indigo" layout="row">
+
+  <div class="md-toolbar-tools">
+    <md-button ui-sref="^.orgs">All</md-button>
+    <span>{{orgView.org.login}}</span>
+
+  </div>
+</md-toolbar>
+<md-content flex>
+
+  <div layout="column" layout-fill layout-align="top center" >
+    <repo-list repos="orgView.org.repos"></repo-list>
+  </div>
+
+</md-content>
