@@ -1,6 +1,5 @@
 export class RepoDetailViewController {
   constructor(GitHub,repo){
-    console.log(github)
     this.GitHub = GitHub;
     this.repo = repo;
   }

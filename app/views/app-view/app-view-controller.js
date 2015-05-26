@@ -5,7 +5,8 @@ export class AppViewController {
   }
 
   toggleNav(){
-    this._sideNavDelegate.toggle('left');
+    console.log(this._sideNavDelegate)
+    this._sideNavDelegate('left').toggle();
   }
 }
 

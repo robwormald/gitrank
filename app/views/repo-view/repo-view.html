@@ -1,31 +1,32 @@
 <md-toolbar class="md-theme-indigo" layout="row">
-
   <div class="md-toolbar-tools">
-    <a ui-sref="^.org(repoView.repo.owner)">{{repoView.repo.owner.login}}</a> /
-    <span>{{repoView.repo.name}}</span>
-
+    <md-button hide-gt-md class="md-menu" ng-click="appView.toggleNav()">
+      <md-icon md-svg-src="images/ic_menu_24px.svg"></md-icon>
+    </md-button>
+    <span><a ui-sref="^.orgs">My Orgs</a></span>
+    <span>/</span>
+    <span><a ui-sref="^.org(repoView.repo.owner)">{{repoView.repo.owner.login}}</a></span>
+    <span>/</span>
+    <span><p>{{repoView.repo.name}}</p></span>
   </div>
 </md-toolbar>
 <md-content flex layout="column" layout-fill layout-align="top center" >
-    <section>
-      <md-subheader>
+  <section>
+    <md-subheader>
       <span>Recent Commits</span>
-      </md-subheader>
+    </md-subheader>
 
-      <md-list>
-        <md-list-item ng-repeat-start="commit in repoView.repo.commits">
-          <img class="md-avatar" ng-src="{{commit.committer.avatar_url}}" alt="" />
-          <p flex="20">
-            {{commit.committer.login}}
-          </p>
-          <p>
-            <a ng-href="{{commit.html_url}}" target="_blank">{{commit.commit.message}}</a>
-          </p>
-        </md-list-item>
-        <md-divider ng-repeat-end>
+    <md-list>
+      <md-list-item ng-repeat-start="commit in repoView.repo.commits">
+        <img class="md-avatar" ng-src="{{commit.committer.avatar_url}}" alt="" />
+        <p flex="20">
+          {{commit.committer.login}}
+        </p>
+        <p>
+          <a ng-href="{{commit.html_url}}" target="_blank">{{commit.commit.message}}</a>
+        </p>
+      </md-list-item>
+      <md-divider ng-repeat-end>
       </md-list>
     </section>
-
-
-
 </md-content>

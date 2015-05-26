@@ -1,9 +1,12 @@
 <md-toolbar class="md-theme-indigo" layout="row">
 
   <div class="md-toolbar-tools">
-    <md-button ui-sref="^.orgs">All</md-button>
-    <span>{{orgView.org.login}}</span>
-
+    <md-button hide-gt-md class="md-menu" ng-click="appView.toggleNav()">
+      <md-icon md-svg-src="images/ic_menu_24px.svg"></md-icon>
+    </md-button>
+    <span><a ui-sref="^.orgs">My Orgs</a></span>
+    <span>/</span>
+    <span><p>{{orgView.org.login}}</p></span>
   </div>
 </md-toolbar>
 <md-content flex>

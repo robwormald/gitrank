@@ -1,14 +1,20 @@
 <div>
   <md-toolbar class="md-theme-indigo" layout="row">
+    <md-button hide-gt-md class="md-menu" ng-click="appView.toggleNav()">
+      <md-icon md-svg-src="images/ic_menu_24px.svg"></md-icon>
+    </md-button>
     <p class="md-toolbar-tools">
       My Orgs
     </p>
   </md-toolbar>
   <md-content flex>
     <md-list>
-      <md-list-item>
-        <h1>hello</h1>
+      <md-list-item ng-repeat-start="org in orgsView.orgs">
+
+          <h2><a ui-sref="app.org(org)">{{org.login}}</a></h2>
+
       </md-list-item>
+      <md-divider ng-repeat-end></md-divider>
     </md-list>
   </md-content>
 </div>

@@ -1,8 +1,5 @@
 export class OrgListController {
-  constructor(){
-    console.log(this.orgs)
-  }
-
+  constructor(){}
 }
 
 export function OrgList(){
